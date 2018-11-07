@@ -2,7 +2,7 @@ const question = (data) => {
     return new Promise((resolve, reject) => {
         const requestData = {
             string: data.string,
-            topic_id: "computer_Science"
+            topicID: data.topicID
         };
 
         const promise = fetch("/feedservice/question",{

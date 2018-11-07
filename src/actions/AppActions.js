@@ -7,6 +7,7 @@ const actions = Reflux.createActions([
   "login",
   "signUp",
   "closeModal",
+  "view_module",
   "question",
   "answer",
   "upvote",

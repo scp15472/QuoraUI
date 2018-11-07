@@ -30,6 +30,24 @@ const store = Reflux.createStore({
     this.trigger(triggerObj)
   },
 
+  onView_module(){
+    console.log("On View_Module Click...");
+    const triggerObj = {
+      action: "view_module",
+      data: "Some data..."
+    }
+    this.trigger(triggerObj)
+  },
+
+  onQuestionClick() {
+    console.log("POST_YOUR_Question clicked...");
+    const triggerObj = {
+      action: "questionClick",
+      data: "Some data.."
+    }
+    this.trigger(triggerObj)
+  },
+
   onLoadFeeds() {
     const promise = feed()
     promise.then(data=>{
@@ -100,7 +118,8 @@ const store = Reflux.createStore({
     this.trigger(triggerObj)
   },
 
-  onQuestion(data){
+  onQuestion(string, topicID){
+    const data = {string, topicID}
     console.log("PostQuestion in for use...", data);
     const questionPromise = question(data)
     questionPromise.then((data)=>{
@@ -137,7 +156,8 @@ const store = Reflux.createStore({
       const triggerObj = {
         action: "answer",
         data: {
-          success: true 
+          success: true,
+          data: data.data 
         }
       };
       this.trigger(triggerObj);

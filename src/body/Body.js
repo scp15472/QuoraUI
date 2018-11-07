@@ -16,7 +16,7 @@ export default class Body extends React.Component {
     this.getLoader = this.getLoader.bind(this);
     this.getLoginPopup = this.getLoginPopup.bind(this);
     this.getErrorMessage = this.getErrorMessage.bind(this);
-    this.signUpClicked = this.signUpClicked.bind(this);
+    this.postQuestionPopup = this.postQuestionPopup.bind(this);
   }
 
   componentDidMount() {
@@ -91,6 +91,39 @@ export default class Body extends React.Component {
     AppActions.closeModal()
   }
 
+  postQuestionClick() {
+    const string = document.getElementById("string").value
+    const topicID = document.getElementById("topicID").value
+    console.log(string,topicID);
+    AppActions.question(string,topicID);
+  }
+
+  
+  postQuestionPopup(){
+    return <div className="body">
+      <Modal open={this.props.postQuestion} actions={
+        <div>
+          <Button waves="light" className="red darken-2" onClick={this.onModalClose}>Close</Button>
+        </div>
+      }>
+        {
+          this.getErrorMessage()
+        }
+        <Tabs className='tab-demo z-depth-1'>
+          <Tab title="Post Question" active>
+            <Row>
+              <Input type="text" label="string" s={12} id="string" />
+              <Input type="text" lable="topicID" s={12} id="topicID" />
+            </Row>
+            <Row>
+              <Button onClick={this.postQuestionClick}>Submit</Button>
+            </Row>
+          </Tab>
+        </Tabs>
+      </Modal>
+    </div>
+  } 
+
   getLoginPopup() {
     return <div className="body">
       <Modal open={this.props.showLogin}  actions={
@@ -138,6 +171,7 @@ export default class Body extends React.Component {
       {this.getLoader()}
       {this.getBody()}
       {this.getLoginPopup()}
+      {this.postQuestionPopup()}
     </div>
   }
 }

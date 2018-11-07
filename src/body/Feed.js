@@ -11,6 +11,6 @@ export default class Feeds extends React.Component{
                     return <Question feed ={feed} isUserLoggedIn={this.props.isUserLoggedIn}/>
                 })
             }
-        </div>
+         </div>
     }
 }

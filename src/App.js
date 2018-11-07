@@ -14,6 +14,7 @@ class App extends Component {
     this.state = {
       showLoader: true,
       showLogin: false,
+      postQuestion: false,
       isUserLoggedIn: false,
       currentUser: {},
       feeds: {}
@@ -31,6 +32,12 @@ class App extends Component {
       newState.showLogin = true;
       this.setState(newState)
     }
+    if (triggerObj.action === "view_module"){
+      console.log("from app.js/view_module")
+      const newState = this.state;
+      newState.postQuestion = true;
+      this.setState(newState)
+    }
     if (triggerObj.action === "loadFeeds") {
       const state = this.state
       state.showLoader = false;
@@ -42,7 +49,7 @@ class App extends Component {
         alert("Question is Successfully submitted...");
         console.log(triggerObj.data)
         const newState = this.state;
-        newState.isUserLoggedIn = true;
+        newState.postQuestion = false;
         this.setState(newState)
       }
     }
@@ -92,7 +99,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar isUserLoggedIn={this.state.isUserLoggedIn} currentUser={this.state.currentUser}/>
-        <Body showLoader={this.state.showLoader} showLogin={this.state.showLogin} feeds={this.state.feeds} isUserLoggedIn={this.state.isUserLoggedIn}/>
+        <Body showLoader={this.state.showLoader} showLogin={this.state.showLogin} feeds={this.state.feeds} isUserLoggedIn={this.state.isUserLoggedIn} postQuestion={this.state.postQuestion}/>
       </div>
     );
   }
