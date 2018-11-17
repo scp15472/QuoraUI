@@ -1,13 +1,9 @@
-const upvote = (data) => {
+const getUserLogin = (user) => {
+    // console.log(username,password, "InSide service....")
     return new Promise((resolve, reject) => {
-        const requestData = {
-            answer_id: data.answer_id
-        };
-
-        const promise = fetch("/feedservice/upvote",{
-            method: 'POST',
+        const promise = fetch("/userservice/login",{
+            method: 'GET',
             catch: 'no-cache',
-            body: JSON.stringify(requestData),
             headers: {
                 'content-type': 'application/json'
             },
@@ -23,6 +19,9 @@ const upvote = (data) => {
                 reject(err)
             })
         })
+
+        
+       
     })
 }
-export default upvote;
+export default getUserLogin;

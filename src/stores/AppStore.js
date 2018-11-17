@@ -7,6 +7,7 @@ import question from '../services/question'
 import answer from '../services/answer'
 import upvote from '../services/upvote'
 import downvote from '../services/downvote'
+import getuserLogin from '../services/getUserLogin'
 
 
 const store = Reflux.createStore({
@@ -173,11 +174,11 @@ const store = Reflux.createStore({
     })
   },
 
-  onUpvote(answer_id) {
+  onUpvote(answer_id){
     const data ={
       answer_id
     }
-    console.log("PostUpvote in for use...", data);
+    console.log("PostUpvote for...", data);
     const upvotePromise = upvote(data)
     upvotePromise.then((data)=>{
       console.log("Respnse from network...", data);
@@ -192,7 +193,7 @@ const store = Reflux.createStore({
     }).catch((error)=>{
       console.log("Error from nework...", error)
       const triggerObj = {
-        action: "postUpvote",
+        action: "upvote",
         data: {
           success:false
         }
@@ -220,7 +221,7 @@ const store = Reflux.createStore({
     }).catch((error)=>{
       console.log("Error from nework...", error)
       const triggerObj = {
-        action: "postDownvote",
+        action: "downvote",
         data: {
           success:false
         }
@@ -228,6 +229,33 @@ const store = Reflux.createStore({
       this.trigger(triggerObj);
     })
   },
+  onGetUserLogin(){
+    const getUserLoginPromise = getuserLogin()
+    getUserLoginPromise.then((data)=>{
+      console.log("Respnse from network...", data)
+      const triggerObj = {
+        action: "getUserLogin",
+        data: {
+          success: true,
+          user:data.Login.user
+        }
+      };
+      this.trigger(triggerObj);
+    }).catch((error)=>{
+      console.log("Error from nework...", error)
+      const triggerObj = {
+        action: "getUserLogin",
+        data: {
+          success:false
+        }
+      };
+      this.trigger(triggerObj);
+    })
+  }
+
+
+
+
 });
 
 export default store

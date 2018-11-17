@@ -1,10 +1,11 @@
-const upvote = (data) => {
+const topic = (data) => {
     return new Promise((resolve, reject) => {
         const requestData = {
-            answer_id: data.answer_id
+            topic_id: data.topic_id,
+            name: data.name
         };
 
-        const promise = fetch("/feedservice/upvote",{
+        const promise = fetch("/feedservice/topic",{
             method: 'POST',
             catch: 'no-cache',
             body: JSON.stringify(requestData),
@@ -13,7 +14,6 @@ const upvote = (data) => {
             },
             credentials: 'same-origin'
         });
-
         promise.then((response) =>{
             const dataPromise = response.json();
             dataPromise.then((data)=>{
@@ -23,6 +23,9 @@ const upvote = (data) => {
                 reject(err)
             })
         })
+
+        
+       
     })
 }
-export default upvote;
+export default topic;

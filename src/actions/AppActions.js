@@ -11,7 +11,7 @@ const actions = Reflux.createActions([
   "question",
   "answer",
   "upvote",
-  "downvote"
-  
+  "downvote",
+  "getUserLogin"
 ])
 export default actions;

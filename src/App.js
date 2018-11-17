@@ -23,6 +23,10 @@ class App extends Component {
     listenermixin.listenTo(AppStore, this.onAppStore)
   }
 
+  componentDidMount(){
+    AppActions.getUserLogin()
+  }
+
   onAppStore(triggerObj) {
     if (triggerObj.action === "goToHome") {
       console.log("trigger received at parent component...", triggerObj.data);
@@ -44,15 +48,6 @@ class App extends Component {
       state.feeds = triggerObj.data;
       this.setState(state);
     }
-    if(triggerObj.action === "question") {
-      if(triggerObj.data.success === true) {
-        alert("Question is Successfully submitted...");
-        console.log(triggerObj.data)
-        const newState = this.state;
-        newState.postQuestion = false;
-        this.setState(newState)
-      }
-    }
     if (triggerObj.action === "login") {
       if (triggerObj.data.success === true) {
         alert("Login successful..." + triggerObj.data.user.first_name);
@@ -61,6 +56,16 @@ class App extends Component {
         newState.showLogin = false;
         newState.isUserLoggedIn = true;
         newState.currentUser = triggerObj.data.user.first_name;
+        this.setState(newState);
+      }
+    }
+    if (triggerObj.action === "getUserLogin") {
+      if (triggerObj.data.success === true) {
+        console.log(triggerObj.data.user)
+        const newState = this.state;
+        newState.showLogin = false;
+        newState.isUserLoggedIn = true;
+        newState.currentUser=triggerObj.data.user.first_name
         this.setState(newState);
       }
     }
@@ -79,6 +84,16 @@ class App extends Component {
       const state = this.state
       state.showLogin = false
       this.setState(state);
+    }
+    if(triggerObj.action === "question") {
+      if(triggerObj.data.success === true) {
+        alert("Question is Successfully submitted...");
+        console.log(triggerObj.data)
+        const newState = this.state;
+        newState.postQuestion = false;
+        this.setState(newState)
+        AppActions.loadFeeds();
+      }
     }
     if (triggerObj.action ==='answer') {
       if(triggerObj.data.success === true){
